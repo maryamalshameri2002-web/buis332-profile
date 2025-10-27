@@ -1,0 +1,98 @@
+/* أساليب بسيطة لصفحة نظيفة ومتجاوبة */
+:root{
+  --bg: #f7f8fb;
+  --card: #ffffff;
+  --accent: #2b6cb0;
+  --text: #222;
+  --danger: #c53030;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans Arabic", sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  direction: rtl;
+  line-height:1.4;
+}
+
+.page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+}
+
+.card{
+  width:100%;
+  max-width:520px;
+  background:var(--card);
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 6px 24px rgba(15,23,42,0.08);
+  text-align:center;
+}
+
+.card h1{margin:0 0 12px 0; font-size:22px}
+.card img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:8px;
+  object-fit:cover;
+  margin: 0 auto 12px auto;
+  max-height:520px;
+  background:#fff;
+  transition:transform .18s ease, opacity .18s ease;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.card img.broken{
+  filter:grayscale(100%) contrast(.95);
+  opacity:.9;
+  transform:scale(.995);
+}
+
+.error{
+  color:var(--danger);
+  font-size:14px;
+  margin:8px 0;
+}
+
+.actions{
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
+
+.actions button,
+.actions a{
+  padding:8px 12px;
+  border-radius:8px;
+  border:0;
+  text-decoration:none;
+  background:var(--accent);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.actions a{
+  background:transparent;
+  color:var(--accent);
+  border:1px solid rgba(43,108,176,0.12);
+}
+
+.note{
+  margin-top:12px;
+  color:#666;
+  font-size:13px;
+}

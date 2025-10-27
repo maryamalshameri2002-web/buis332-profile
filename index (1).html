@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ar">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>صفحة عرض صورة جاهزة</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="card">
+      <h1>الملف الشخصي</h1>
+      <!-- ضع هنا مسار الصورة بالنسبة لمجلد index.html -->
+      <img id="profileImage" src="images/photo.jpg" alt="صورة المستخدم" />
+      <p id="errorMsg" class="error" hidden></p>
+
+      <div class="actions">
+        <button id="tryReload">إعادة تحميل الصورة</button>
+        <a href="images/photo.jpg" id="openLink" target="_blank" rel="noopener">فتح الصورة في نافذة جديدة</a>
+      </div>
+
+      <p class="note">استبدل المسار أعلاه إذا كانت الصورة في مكان آخر أو ارفعها إلى مجلد <code>images/</code>.</p>
+    </section>
+  </main>
+
+  <script>
+    // JS بسيط للتعامل مع فشل تحميل الصورة وعرض رسالة توضيحية
+    document.addEventListener('DOMContentLoaded', function () {
+      const img = document.getElementById('profileImage');
+      const err = document.getElementById('errorMsg');
+      const reloadBtn = document.getElementById('tryReload');
+      const openLink = document.getElementById('openLink');
+
+      function showError(message) {
+        err.hidden = false;
+        err.textContent = message;
+        img.classList.add('broken');
+      }
+
+      function clearError() {
+        err.hidden = true;
+        err.textContent = '';
+        img.classList.remove('broken');
+      }
+
+      img.addEventListener('load', () => {
+        clearError();
+      });
+
+      img.addEventListener('error', () => {
+        // نعرض رسالة مبسطة ونضع صورة بديلة صغيرة (SVG data URI) بدلًا من عدم ظهور أي شيء
+        showError('تعذر تحميل الصورة. تأكد من مسار الملف واسم الملف وحساسية الأحرف (مثلاً photo.jpg ≠ Photo.JPG).');
+        img.src = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400"><rect width="100%" height="100%" fill="%23f2f2f2"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%23888888" font-size="20">صورة غير متوفرة</text></svg>';
+        openLink.href = '#';
+      });
+
+      reloadBtn.addEventListener('click', () => {
+        clearError();
+        // لإعادة محاولة التحميل نعيد ضبط src مع إضافة باراميتر وهمي لمنع الكاش
+        const original = 'images/photo.jpg';
+        img.src = original + '?_=' + Date.now();
+        openLink.href = original;
+      });
+    });
+  </script>
+</body>
+</html>
